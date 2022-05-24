@@ -1,0 +1,13 @@
+帮助：
+  :help xxx
+
+按键：
+  Tab: c-v-i
+
+Lua:
+  多行字符串：[[]]
+
+路径：
+  vim.fn.stdpath("data")
+  vim.fn.stdpath("config")
+  vim.fn.stdpath("cache")

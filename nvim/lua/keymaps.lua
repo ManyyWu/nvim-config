@@ -1,5 +1,6 @@
 local global = require("global")
 local opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = true }
 local set = vim.keymap.set
 local unset = vim.keymap.del
 local config_path = global.config_path
@@ -98,55 +99,68 @@ set("n", "<A-n>",      ":bn<CR>", opts)
 set("n", "<A-p>",      ":bp<CR>", opts)
 set("n", "<A-c>",      ":call DeleteCurBufferNotCloseWindow()<CR>", opts)
 
---[[ leader组合键 ]]--
--- 切换文件树
-set("n", "<leader>e",  ":NvimTreeToggle<CR>", opts)
--- 交换窗口
-set("n", "<leader>k",  ":call MarkWindowSwap()<CR> <C-w>k :call DoWindowSwap()<CR> <C-w>j", opts)
-set("n", "<leader>j",  ":call MarkWindowSwap()<CR> <C-w>j :call DoWindowSwap()<CR> <C-w>k", opts)
-set("n", "<leader>l",  ":call MarkWindowSwap()<CR> <C-w>l :call DoWindowSwap()<CR> <C-w>h", opts)
-set("n", "<leader>h",  ":call MarkWindowSwap()<CR> <C-w>h :call DoWindowSwap()<CR> <C-w>l", opts)
--- 搜索
-set("n", "<leader>f",  "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", opts)
-set("n", "<leader>r",  ":lua require('telescope.builtin').resume()<CR>", opts)
-set("n", "<leader>ss", ":lua require('telescope.builtin').grep_string()<CR>", opts)
-set("n", "<leader>sg", ":lua require('telescope.builtin').live_grep()<CR>", opts)
-set("n", "<leader>sz", ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", opts)
-set("n", "<leader>sf", ":lua require('telescope.builtin').find_files()<CR>", opts)
-set("n", "<leader>sb", ":lua require('telescope.builtin').buffers()<CR>", opts)
-set("n", "<leader>sh", ":lua require('telescope.builtin').help_tags()<CR>", opts)
--- git
-set("n", "<leader>gd", ":lua require('telescope.builtin').git_status()<CR>", opts)
-set("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<CR>", opts)
-set("n", "<leader>gc", ":lua require('telescope.builtin').git_commits()<CR>", opts)
-set("n", "<leader>gs", ":lua require('telescope.builtin').git_stash()<CR>", opts)
-set("n", "<leader>gv", ":lua require('telescope.builtin').git_bcommits()<CR>", opts)
-
---[[ ;单词 ]]--
--- lsp
-set("n", ";l",         ":LspInstallInfo<CR>", opts)
-set("n", ";li",        ":LspInfo<CR>", opts)
-set("n", ";ts",        ":TSModuleInfo<CR>", opts)
--- 列举当前buffer诊断信息
-set("n", ";sign",      ":lua require('telescope.builtin').diagnostics()<CR>", opts)
--- 列举引用
-set("n", ";ref",       ":lua require('telescope.builtin').lsp_references()<CR>", opts)
--- 列举符号
-set("n", ";symble",    ":lua require('telescope.builtin').lsp_workspace_symbols()<CR>", opts)
-set("n", ";symble",    ":lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>", opts)
--- 显示帮
-set("n", ";h",         ":!cat " .. config_path .. "/lua/help.txt<CR>", opts)
--- reload
-set("n", ";reload",    ":lua require('core.reload').reload_all_config()<CR>", opts)
--- 最近打开的文件
-set("n", ";recent",    ":lua require('telescope.builtin').oldfiles()<CR>", opts)
--- 切换主题
-set("n", ";theme",     ":lua require('telescope.builtin').colorscheme()<CR>", opts)
-
-
 local M = { }
 
 M.opts = opts
+
+M.leader_keybinding = {
+  -- 交换窗口
+  h = { ":call MarkWindowSwap()<CR> <C-w>h :call DoWindowSwap()<CR> <C-w>l", "Swap Left" },
+  j = { ":call MarkWindowSwap()<CR> <C-w>j :call DoWindowSwap()<CR> <C-w>k", "Swap Down" },
+  k = { ":call MarkWindowSwap()<CR> <C-w>k :call DoWindowSwap()<CR> <C-w>j", "Swap Up" },
+  l = { ":call MarkWindowSwap()<CR> <C-w>l :call DoWindowSwap()<CR> <C-w>h", "Swap Right" },
+  -- 其他
+  o = {
+    name = "Others",
+    r = { ":lua require('core.reload').reload_all_config(true)<CR>", "Reload Neovim Config" },
+    c = { ":lua require('telescope.builtin').colorscheme()<CR>", "Select Colortheme" },
+    t = { ":TSModuleInfo<CR>", "TreeSitter Install Info" },
+    l = {
+      name = "Lsp Info",
+      i = { ":LspInstallInfo<CR>", "Lsp Install Info" },
+      s = { ":LspInfo<CR>", "Lsp Info" },
+    },
+  },
+}
+
+M.leader2_keybinding = {
+  -- 文件树
+  e = { ":NvimTreeToggle<CR>", "File Explorer", },
+  -- 列举引用
+  r = { ":lua require('telescope.builtin').lsp_references()<CR>", "Symbol References" },
+  -- 列举符号
+  s = {
+    name = "Symbols",
+    a = { ":lua require('telescope.builtin').lsp_workspace_symbols()<CR>", "All Symbols" },
+    f = { ":lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>", "Dynamic Symbols" },
+  },
+  -- 搜索
+  f = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Replace" },
+  r = { ":lua require('telescope.builtin').resume()<CR>", "Resume Search Panel"},
+  -- 帮助
+  h = { ":!cat " .. config_path .. "/lua/help.txt<CR>", "Help" },
+  s = {
+    name = "Search",
+    s = { ":lua require('telescope.builtin').grep_string()<CR>", "Search Current Word(fuzzy)" },
+    g = { ":lua require('telescope.builtin').live_grep()<CR>", "Live Search(regex)" },
+    z = { ":lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", "Fuzzy Search In Buffer(fuzzy)" },
+    f = { ":lua require('telescope.builtin').find_files()<CR>", "Find File(fuzzy)" },
+    b = { ":lua require('telescope.builtin').buffers()<CR>", "Find Buffer" },
+    h = { ":lua require('telescope.builtin').help_tags()<CR>", "Find Help" },
+    o = { ":lua require('telescope.builtin').oldfiles()<CR>", "Find OldFiles" },
+    t = { ":lua require('telescope.builtin').diagnostics()<CR>", "Diagnostics" },
+  },
+  -- git
+  g = {
+    name = "Git",
+    g = { ":lua require('toggleterm').exec(require('global').config_path .. '/bin/lazygit')<CR>", "Lazygit" },
+    d = { ":lua require('telescope.builtin').git_status()<CR>", "Diff" },
+    b = { ":lua require('telescope.builtin').git_branches()<CR>", "Branches" },
+    c = { ":lua require('telescope.builtin').git_commits()<CR>", "Log" },
+    s = { ":lua require('telescope.builtin').git_stash()<CR>", "Stash" },
+    v = { ":lua require('telescope.builtin').git_bcommits()<CR>", "Log For Current File" },
+  },
+}
 
 -- lsp快捷键设置
 function M.set_lsp_keymaps(bufnr)
@@ -168,6 +182,13 @@ function M.set_lsp_keymaps(bufnr)
   --set(bufnr, 'n', '<leader>f',  ':lua vim.lsp.buf.formatting()<CR>', opts)
 
   --vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+end
+
+-- terminal
+function M.set_terminal_keymaps()
+  vim.api.nvim_buf_set_keymap(0, 't', '<Esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-w>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-w>k]], opts)
 end
 
 return M

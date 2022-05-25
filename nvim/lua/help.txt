@@ -3,33 +3,11 @@
 ==============================================
 C-h/j/k/l               切换窗口
 A-h/j/k/l               调整窗口大小
+C-\                     terminal, 1C-\切换第一个terminal
 A-v/s                   纵向/横向分割窗口
 A/C-q                   关闭窗口
 A-n/p                   切换到下/上一个buffer
 A-c                     关闭当前buffer
-
-<leader>e               切换文件树
-<leader>l               左边窗口交换到右边
-<leader>j               右边窗口交换到左边
-<leader>k               下边窗口交换到上边
-<leader>j               上边窗口交换到下边
-<leader>f               搜索光标下的字符串
-<leader>f               替换面板(正则)
-<leader>r               恢复搜索结果
-<leader>ss              搜索面板(模糊搜索)
-<leader>sg              实时搜索(正则)
-<leader>sz              当前文件模糊搜索
-<leader>sf              搜索文件(模糊搜索)
-<leader>sb              搜索buffer
-<leader>sh              搜索help
-
-;lsp                    打开lsp交互式面板
-;lspi                   打开lsp状态面板
-;ts                     显示安装的ts模块
-;h                      帮助
-;reload                 重新加载nvim配置
-;recent                 最近打开文件
-;theme                  切换主题
 
 ==============================================
 = 选择扩展

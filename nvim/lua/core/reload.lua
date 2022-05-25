@@ -7,9 +7,9 @@ function M.auto_reload_config()
   local pathfile = vim.fn.expand("%:p")
   local ext = vim.fn.expand("%:e")
   local filename = vim.fn.expand("%:t")
-  local is_config_path = (vim.fn.matchstr(pathfile, config_path) == config_path)
+  local is_same_path = (vim.fn.matchstr(pathfile, config_path) == config_path)
 
-  if is_config_path and ext == "lua" then
+  if is_same_path and ext == "lua" then
     dofile(pathfile)
     if filename == "plugins.lua" then
       vim.cmd("PackerSync")
@@ -19,12 +19,14 @@ function M.auto_reload_config()
   end
 end
 
-function M.reload_all_config()
+function M.reload_all_config(packer_sync)
   local config_path = global.config_path
 
   dofile(config_path .. "/lua/init.lua")
   vim.notify("Reload all configuration complete.", vim.log.levels.INFO)
-  vim.cmd("PackerSync")
+  if packer_sync then
+    vim.cmd("PackerSync")
+  end
 end
 
 return M

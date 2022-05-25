@@ -81,9 +81,6 @@ local vim_options = {
     -- 关闭自动换行
     wrap = false,
 
-    -- 自动保存
-    autowriteall = true,
-
     -- 关闭自动备份
     backup      = false,
     writebackup = false,
@@ -105,7 +102,11 @@ local vim_options = {
     wildmenu = true,
 
     -- 自动补全不自动选中
-    completeopt = "menu,menuone,noselect,noinsert"
+    -- menu: 多于一项才显示菜单
+    -- menuone: 即使只有一项也显示菜单
+    -- noinsert: 不选择时不插入文本
+    -- noselect: 强迫用户选择
+    completeopt = "menu,menuone",
   },
 
   --[[ 剪切板 ]]--
@@ -147,7 +148,7 @@ local cmds = {
 
   -- nvim-tree为最后一个窗口时自动关闭nvim
   {
-    enable = false,
+    enable = true,
     cmd = [[
       augroup auto_close_when_last
       autocmd!

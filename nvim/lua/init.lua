@@ -9,6 +9,9 @@ require("keymaps")
 -- 自定义配置
 require("config")
 
+-- 项目配置
+require("projects")
+
 -- 自动重载配置
 local auto_reload_config = vim.api.nvim_create_augroup("auto_reload_config", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {

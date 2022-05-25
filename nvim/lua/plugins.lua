@@ -64,13 +64,25 @@ packer.startup({
     -- 菜单
     use("nvim-lua/popup.nvim")
 
-    -- 高性能grep
-    use("BurntSushi/ripgrep")
-
     -- 主题(必须是ts支持的主题https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes)
     use({
       "tanvirtin/monokai.nvim",
       config = "require('plugins.colorscheme')",
+    })
+
+    -- 自动保存
+    use({
+      "Pocco81/AutoSave.nvim",
+      config = "require('autosave').setup({ opts = { debounce_delay = 1000 }})",
+    })
+
+    -- 状态栏
+    use({
+      "nvim-lualine/lualine.nvim",
+      config = "require('lualine').setup({ options = { theme = 'ayu_dark' } })",
+      requires = {
+        "kyazdani42/nvim-web-devicons"
+      },
     })
 
     -- 光标处单词高亮
@@ -140,7 +152,26 @@ packer.startup({
         "L3MON4D3/luasnip",                         -- 代码段
         "rafamadriz/friendly-snippets",             -- 常用语言的代码段
         "onsails/lspkind-nvim",                     -- 图标支持
+        "ray-x/lsp_signature.nvim",                 -- 自动函数签名提示
       },
+    })
+
+    -- 终端
+    use({
+      "akinsho/toggleterm.nvim", tag = 'v2.*',
+      config = "require('plugins.toggleterm')",
+    })
+
+    -- 按键绑定
+    use({
+      "folke/which-key.nvim",
+      config = "require('plugins.which-key')"
+    })
+
+    -- 修改位置恢复
+    use({
+      "ethanholz/nvim-lastplace",
+      config = "require('plugins.lastplace')",
     })
 
     -- clone后配置packer

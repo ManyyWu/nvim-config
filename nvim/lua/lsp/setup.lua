@@ -55,6 +55,8 @@ for _, v in pairs(installed) do
     require("keymaps").set_lsp_keymaps(bufnr)
 
     lsp_highlight_document(client)
+
+    require("lsp_signature").on_attach()
   end
 
   opts.capabilities = capabilities
@@ -78,7 +80,7 @@ end
   end
 
   local config = {
-    virtual_text = false,     -- 行尾是否显示诊断提示
+    virtual_text = false,    -- 行尾是否显示诊断提示
     signs = {
       active = {
       },

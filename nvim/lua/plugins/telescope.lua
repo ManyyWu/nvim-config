@@ -15,6 +15,16 @@ telescope.setup({
       height = function(self, max_columns, max_lines) return max_lines end,
       width = function(self, max_columns, max_lines) return max_columns end,
     },
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '--encoding=gbk',
+    },
   },
   pickers = {
     find_files  = default,

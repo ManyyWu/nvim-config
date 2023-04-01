@@ -32,7 +32,7 @@ local function lsp_highlight_document(client)
 end
 
 -- 使用cmp_nvim_lsp代替Neovim自带的capabilities(不支持某些功能，比如代码段完成)
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- 为所有安装的服务器注册处理函数
 local installed = require("nvim-lsp-installer").get_installed_servers()

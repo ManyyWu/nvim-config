@@ -1,3 +1,4 @@
+local global = require("global")
 local telescope = require("telescope")
 
 local default = {
@@ -23,7 +24,8 @@ telescope.setup({
       '--line-number',
       '--column',
       '--smart-case',
-      '--encoding=gbk,utf-8',
+      '--pre='..global.bin_path..'/rgpre',
+      '--encoding=utf8',
     },
   },
   pickers = {

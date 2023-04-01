@@ -71,10 +71,10 @@ packer.startup({
     })
 
     -- 自动保存
-    use({
-      "Pocco81/AutoSave.nvim",
-      config = "require('autosave').setup({ opts = { debounce_delay = 1000 }})",
-    })
+    --use({
+    --  "Pocco81/AutoSave.nvim",
+    --  config = "require('autosave').setup({ opts = { debounce_delay = 1000 }})",
+    --})
 
     -- 状态栏
     use({
@@ -101,7 +101,7 @@ packer.startup({
       config = "require('plugins.nvim-autopairs')",
     })
 
-    -- 搜索(依赖ripgrep命令)
+    -- 搜索(依赖命令BurntSushi/ripgrep,sharkdp/fd)，不工作时执行":checkhealth telescope"
     use {
       "nvim-telescope/telescope.nvim",
       config = "require('plugins.telescope')",

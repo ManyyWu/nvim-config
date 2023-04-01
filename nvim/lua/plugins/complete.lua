@@ -39,7 +39,6 @@ cmp.setup({
       elseif require("luasnip").expand_or_jumpable() then
         require("luasnip").expand_or_jump()
       elseif has_words_before() then
-        print(1)
         cmp.complete()
       else
         fallback()

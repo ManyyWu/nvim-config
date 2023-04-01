@@ -23,7 +23,7 @@ telescope.setup({
       '--line-number',
       '--column',
       '--smart-case',
-      '--encoding=gbk',
+      '--encoding=gbk,utf-8',
     },
   },
   pickers = {

@@ -1,3 +1,4 @@
+local global = require("global")
 local spectre = require("spectre")
 
 spectre.setup({
@@ -11,6 +12,14 @@ spectre.setup({
   },
   find_engine = {
     ['rg'] = {
+      args = {
+        '--pre=' .. global.bin_path .. '/rgpre',
+        '--color=never',
+        '--no-heading',
+        '--with-filename',
+        '--line-number',
+        '--column',
+      },
       options = {
         ['gbk'] = {
           value="--encoding=gbk",

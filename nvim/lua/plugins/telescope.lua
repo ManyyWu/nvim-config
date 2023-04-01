@@ -24,7 +24,7 @@ telescope.setup({
       '--line-number',
       '--column',
       '--smart-case',
-      '--pre='..global.bin_path..'/rgpre',
+      '--pre=' .. global.bin_path .. '/rgpre',
       '--encoding=utf8',
     },
   },
